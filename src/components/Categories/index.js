@@ -1,4 +1,5 @@
 import React, {useState, useRef, useEffect, useContext} from 'react'
+import {v4 as uuidv4} from 'uuid'
 import MyContext from '../../context/MyContext'
 import {
   HorizontalScrollContainer,
@@ -11,7 +12,10 @@ import {
 
 const Categories = props => {
   const {reptoDishes} = props
-  const menuCategory = reptoDishes.map(eachItem => eachItem.menuCategory)
+  const menuCategory = reptoDishes.map(eachItem => ({
+    id: uuidv4(),
+    menuName: eachItem.menuCategory,
+  }))
   const items = [...menuCategory]
   const [currentIndex, setCurrentIndex] = useState(0)
   const scrollContainerRef = useRef(null)
@@ -68,11 +72,11 @@ const Categories = props => {
         <Content ref={scrollContainerRef}>
           {items.map((item, index) => (
             <Item
-              key={index}
+              key={item.id}
               onClick={() => handleClick(index)}
               selected={index === currentIndex}
             >
-              {item}
+              {item.menuName}
             </Item>
           ))}
           {/* Duplicate first and last items for circular navigation */}
@@ -81,32 +85,30 @@ const Categories = props => {
             onClick={() => handleClick(0)}
             selected={currentIndex === items.length}
           >
-            {items[0]}
+            {items[0].menuName}
           </Item>
           <Item
             key="last-duplicate"
             onClick={() => handleClick(items.length - 1)}
             selected={currentIndex === -1}
           >
-            {items[items.length - 1]}
+            {items[items.length - 1].menuName}
           </Item>
         </Content>
       </HorizontalScrollContainer>
       <CategoriesList>
-        {items.map((item, index) => {
-          return (
-            <CategorieItem key={index}>
-              <CategorieBtn
-                data-index={index}
-                onClick={onClickCategoryBtn}
-                selected={index === currentIndex}
-                type="button"
-              >
-                {item}
-              </CategorieBtn>
-            </CategorieItem>
-          )
-        })}
+        {items.map((item, index) => (
+          <CategorieItem key={item.id}>
+            <CategorieBtn
+              data-index={index}
+              onClick={onClickCategoryBtn}
+              selected={index === currentIndex}
+              type="button"
+            >
+              {item.menuName}
+            </CategorieBtn>
+          </CategorieItem>
+        ))}
       </CategoriesList>
     </>
   )

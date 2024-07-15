@@ -24,6 +24,7 @@ export const ItemDetails = styled.li`
     padding: 20px;
   }
 `
+
 export const ItemLogoContentCard = styled.div`
   display: flex;
   width: 44%;
@@ -38,13 +39,8 @@ export const ItemLogoCard = styled.div`
   justify-content: center;
   height: 20px;
   min-width: 20px;
-  border: ${props => {
-    if (props.availability === true) {
-      return '1px solid #08750c'
-    }
-
-    return '1px solid #ad2c0c'
-  }};
+  border: ${({$availability}) =>
+    $availability ? '1px solid #08750c' : '1px solid #ad2c0c'};
   margin-right: 10px;
   @media screen and (min-width: 576px) {
     height: 40px;
@@ -62,13 +58,8 @@ export const ItemLogo = styled.div`
   height: 12px;
   width: 12px;
   border-radius: 50%;
-  background-color: ${props => {
-    if (props.availability === true) {
-      return '#08750c'
-    }
-
-    return '#ad2c0c'
-  }};
+  background-color: ${({$availability}) =>
+    $availability ? '#08750c' : '#ad2c0c'};
   border: none;
   @media screen and (min-width: 576px) {
     height: 26px;

@@ -30,8 +30,8 @@ const RestoApp = () => {
           nexturl: eachItem.nexturl,
         }))
         setData(tableMenuList)
-      } catch (error) {
-        setError(error.message)
+      } catch (err) {
+        setError(err.message)
       } finally {
         setLoading(false)
       }

@@ -101,8 +101,8 @@ const CurrentDishesList = () => {
         return (
           <ItemDetails key={dishId}>
             <ItemLogoContentCard>
-              <ItemLogoCard availability={dishAvailability}>
-                <ItemLogo availability={dishAvailability}></ItemLogo>
+              <ItemLogoCard $availability={dishAvailability}>
+                <ItemLogo $availability={dishAvailability}>{}</ItemLogo>
               </ItemLogoCard>
               <DishNameDespPriceCard>
                 <DishName>{dishName}</DishName>
