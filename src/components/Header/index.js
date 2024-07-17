@@ -1,30 +1,22 @@
 import {useContext} from 'react'
-
+import {GrCart} from 'react-icons/gr'
 import MyContext from '../../context/MyContext'
-
-import {
-  HeaderCard,
-  Heading,
-  CartNameIconCard,
-  CartName,
-  CartIcon,
-  CartCard,
-  SpanCount,
-} from './styledComponents'
+import './index.css'
 
 const Header = () => {
   const {cartItem} = useContext(MyContext)
   return (
-    <HeaderCard>
-      <Heading>UNI Resto Cafe</Heading>
-      <CartNameIconCard>
-        <CartName>My Orders</CartName>
-        <CartCard>
-          <SpanCount>{cartItem}</SpanCount>
-          <CartIcon />
-        </CartCard>
-      </CartNameIconCard>
-    </HeaderCard>
+    <div className="header-card">
+      <h1 className="heading">UNI Resto Cafe</h1>
+      <div className="cart-name-icon-card">
+        <p className="cart-name">My Orders</p>
+        <div className="cart-card">
+          <span className="span-count">{cartItem}</span>
+          <GrCart className="cart-icon" />
+        </div>
+      </div>
+    </div>
   )
 }
+
 export default Header

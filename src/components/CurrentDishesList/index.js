@@ -1,28 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react'
 import MyContext from '../../context/MyContext'
-
-import {
-  DishesList,
-  ItemLogoContentCard,
-  ItemDetails,
-  ItemLogoCard,
-  ItemLogo,
-  DishNameDespPriceCard,
-  DishName,
-  DishCurrencyPriceCard,
-  DishCurrency,
-  DishPrice,
-  DishDesp,
-  DishCountCard,
-  DishIncreaseBtn,
-  DishDecreaseBtn,
-  DishCount,
-  DishCaloriesImageCard,
-  DishCalories,
-  DishImage,
-  DishAvailability,
-  CustomizationAvailable,
-} from './styledComponents'
+import './index.css'
 
 const CurrentDishesList = () => {
   const {currentDishList, increaseCartItem, decreaseCartItem} =
@@ -83,7 +61,7 @@ const CurrentDishesList = () => {
   }
 
   return (
-    <DishesList>
+    <ul className="dishes-list">
       {categoryDishesList.map(eachItem => {
         const {
           dishId,
@@ -99,52 +77,64 @@ const CurrentDishesList = () => {
         } = eachItem
 
         return (
-          <ItemDetails key={dishId}>
-            <ItemLogoContentCard>
-              <ItemLogoCard $availability={dishAvailability}>
-                <ItemLogo $availability={dishAvailability}>{}</ItemLogo>
-              </ItemLogoCard>
-              <DishNameDespPriceCard>
-                <DishName>{dishName}</DishName>
-                <DishCurrencyPriceCard>
-                  <DishCurrency>{dishCurrency}</DishCurrency>
-                  <DishPrice>{dishPrice}</DishPrice>
-                </DishCurrencyPriceCard>
-                <DishDesp>{dishDescription}</DishDesp>
+          <li className="item-details" key={dishId}>
+            <div className="item-logo-content-card">
+              <div
+                className={`item-logo-card ${
+                  dishAvailability ? 'available' : 'not-available'
+                }`}
+              >
+                <div
+                  className={`item-logo ${
+                    dishAvailability ? 'available' : 'not-available'
+                  }`}
+                >
+                  {}
+                </div>
+              </div>
+              <div className="dish-name-desp-price-card">
+                <h1 className="dish-name">{dishName}</h1>
+                <div className="dish-currency-price-card">
+                  <p className="dish-currency">{dishCurrency}</p>
+                  <p className="dish-price">{dishPrice}</p>
+                </div>
+                <p className="dish-desp">{dishDescription}</p>
                 {dishAvailability === false ? (
-                  <DishAvailability>Not available</DishAvailability>
+                  <p className="dish-availability">Not available</p>
                 ) : (
-                  <DishCountCard>
-                    <DishDecreaseBtn
+                  <div className="dish-count-card">
+                    <button
+                      className="dish-decrease-btn"
                       type="button"
                       onClick={() => onClickDecreaseBtn(dishId)}
                     >
                       -
-                    </DishDecreaseBtn>
-                    <DishCount>{cartItem}</DishCount>
-                    <DishIncreaseBtn
+                    </button>
+                    <p className="dish-count">{cartItem}</p>
+                    <button
+                      className="dish-increase-btn"
                       type="button"
                       onClick={() => onClickIncreaseBtn(dishId)}
                     >
                       +
-                    </DishIncreaseBtn>
-                  </DishCountCard>
+                    </button>
+                  </div>
                 )}
                 {addonCat.length !== 0 && (
-                  <CustomizationAvailable>
+                  <p className="customization-available">
                     Customizations available
-                  </CustomizationAvailable>
+                  </p>
                 )}
-              </DishNameDespPriceCard>
-            </ItemLogoContentCard>
-            <DishCaloriesImageCard>
-              <DishCalories>{`${dishCalories} calories`}</DishCalories>
-              <DishImage src={dishImage} alt={dishName} />
-            </DishCaloriesImageCard>
-          </ItemDetails>
+              </div>
+            </div>
+            <div className="dish-calories-image-card">
+              <p className="dish-calories">{`${dishCalories} calories`}</p>
+              <img className="dish-image" src={dishImage} alt={dishName} />
+            </div>
+          </li>
         )
       })}
-    </DishesList>
+    </ul>
   )
 }
 

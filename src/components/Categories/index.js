@@ -1,21 +1,14 @@
 import React, {useState, useRef, useEffect, useContext} from 'react'
-import {v4 as uuidv4} from 'uuid'
 import MyContext from '../../context/MyContext'
-import {
-  HorizontalScrollContainer,
-  Content,
-  Item,
-  CategoriesList,
-  CategorieItem,
-  CategorieBtn,
-} from './styledComponents'
+import './index.css'
 
 const Categories = props => {
   const {reptoDishes} = props
-  const menuCategory = reptoDishes.map(eachItem => ({
-    id: uuidv4(),
-    menuName: eachItem.menuCategory,
-  }))
+  let idCount = 0
+  const menuCategory = reptoDishes.map(eachItem => {
+    idCount += 1
+    return {id: idCount, menuName: eachItem.menuCategory}
+  })
   const items = [...menuCategory]
   const [currentIndex, setCurrentIndex] = useState(0)
   const scrollContainerRef = useRef(null)
@@ -68,48 +61,52 @@ const Categories = props => {
 
   return (
     <>
-      <HorizontalScrollContainer>
-        <Content ref={scrollContainerRef}>
+      <div className="horizontal-scroll-container">
+        <div className="content" ref={scrollContainerRef}>
           {items.map((item, index) => (
-            <Item
+            <button
               key={item.id}
+              className={`item ${index === currentIndex ? 'selected' : ''}`}
               onClick={() => handleClick(index)}
-              selected={index === currentIndex}
             >
               {item.menuName}
-            </Item>
+            </button>
           ))}
           {/* Duplicate first and last items for circular navigation */}
-          <Item
+          <button
             key="first-duplicate"
+            className={`item ${
+              currentIndex === items.length ? 'selected' : ''
+            }`}
             onClick={() => handleClick(0)}
-            selected={currentIndex === items.length}
           >
             {items[0].menuName}
-          </Item>
-          <Item
+          </button>
+          <button
             key="last-duplicate"
+            className={`item ${currentIndex === -1 ? 'selected' : ''}`}
             onClick={() => handleClick(items.length - 1)}
-            selected={currentIndex === -1}
           >
             {items[items.length - 1].menuName}
-          </Item>
-        </Content>
-      </HorizontalScrollContainer>
-      <CategoriesList>
+          </button>
+        </div>
+      </div>
+      <ul className="categories-list">
         {items.map((item, index) => (
-          <CategorieItem key={item.id}>
-            <CategorieBtn
+          <li key={item.id} className="categorie-item">
+            <button
               data-index={index}
               onClick={onClickCategoryBtn}
-              selected={index === currentIndex}
+              className={`categorie-btn ${
+                index === currentIndex ? 'selected' : ''
+              }`}
               type="button"
             >
               {item.menuName}
-            </CategorieBtn>
-          </CategorieItem>
+            </button>
+          </li>
         ))}
-      </CategoriesList>
+      </ul>
     </>
   )
 }

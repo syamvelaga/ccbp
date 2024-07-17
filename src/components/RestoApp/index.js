@@ -3,8 +3,7 @@ import {useState, useEffect} from 'react'
 import Header from '../Header'
 import Categories from '../Categories'
 import CurrentDishesList from '../CurrentDishesList'
-
-import {RestoContainer} from './styledComponents'
+import './index.css'
 
 const RestoApp = () => {
   const [data, setData] = useState([])
@@ -48,11 +47,11 @@ const RestoApp = () => {
   }
 
   return (
-    <RestoContainer>
+    <div className="resto-container">
       <Header />
       <Categories reptoDishes={data} />
       <CurrentDishesList />
-    </RestoContainer>
+    </div>
   )
 }
 

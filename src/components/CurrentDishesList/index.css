@@ -1,15 +1,13 @@
-import styled from 'styled-components'
-
-export const DishesList = styled.ul`
+.dishes-list {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0px;
   width: 100%;
   padding: 20px;
-`
+}
 
-export const ItemDetails = styled.li`
+.item-details {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -18,29 +16,26 @@ export const ItemDetails = styled.li`
   border: 1px solid #94979c;
   padding: 10px;
   margin-bottom: 20px;
-  width: 100%;
   border-radius: 6px;
   @media screen and (min-width: 576px) {
     padding: 20px;
   }
-`
+}
 
-export const ItemLogoContentCard = styled.div`
+.item-logo-content-card {
   display: flex;
   width: 44%;
   @media screen and (min-width: 768px) {
     width: 48%;
   }
-`
+}
 
-export const ItemLogoCard = styled.div`
+.item-logo-card {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 20px;
   min-width: 20px;
-  border: ${({$availability}) =>
-    $availability ? '1px solid #08750c' : '1px solid #ad2c0c'};
   margin-right: 10px;
   @media screen and (min-width: 576px) {
     height: 40px;
@@ -52,15 +47,20 @@ export const ItemLogoCard = styled.div`
     min-width: 32px;
     margin-right: 16px;
   }
-`
+}
 
-export const ItemLogo = styled.div`
+.item-logo-card.available {
+  border: 1px solid #08750c;
+}
+
+.item-logo-card.not-available {
+  border: 1px solid #ad2c0c;
+}
+
+.item-logo {
   height: 12px;
   width: 12px;
   border-radius: 50%;
-  background-color: ${({$availability}) =>
-    $availability ? '#08750c' : '#ad2c0c'};
-  border: none;
   @media screen and (min-width: 576px) {
     height: 26px;
     min-width: 26px;
@@ -69,14 +69,22 @@ export const ItemLogo = styled.div`
     height: 20px;
     min-width: 20px;
   }
-`
+}
 
-export const DishNameDespPriceCard = styled.div`
+.item-logo.available {
+  background-color: #08750c;
+}
+
+.item-logo.not-available {
+  background-color: #ad2c0c;
+}
+
+.dish-name-desp-price-card {
   display: flex;
   flex-direction: column;
-`
+}
 
-export const DishName = styled.h1`
+.dish-name {
   font-family: 'Roboto';
   font-size: 16px;
   font-weight: bold;
@@ -87,17 +95,17 @@ export const DishName = styled.h1`
   @media screen and (min-width: 768px) {
     font-size: 22px;
   }
-`
+}
 
-export const DishCurrencyPriceCard = styled.div`
+.dish-currency-price-card {
   display: flex;
   align-items: center;
   @media screen and (min-width: 576px) {
     width: 160px;
   }
-`
+}
 
-export const DishCurrency = styled.p`
+.dish-currency {
   color: #3c403c;
   font-family: 'Roboto';
   font-size: 14px;
@@ -109,9 +117,9 @@ export const DishCurrency = styled.p`
     font-size: 18px;
     margin-right: 12px;
   }
-`
+}
 
-export const DishPrice = styled.p`
+.dish-price {
   color: #3c403c;
   font-family: 'Roboto';
   font-size: 14px;
@@ -121,9 +129,9 @@ export const DishPrice = styled.p`
   @media screen and (min-width: 576px) {
     font-size: 18px;
   }
-`
+}
 
-export const DishDesp = styled.p`
+.dish-desp {
   color: #94979c;
   font-family: 'Roboto';
   font-size: 14px;
@@ -137,9 +145,9 @@ export const DishDesp = styled.p`
   @media screen and (min-width: 768px) {
     font-size: 16px;
   }
-`
+}
 
-export const DishCountCard = styled.div`
+.dish-count-card {
   background-color: #08750c;
   display: flex;
   justify-content: space-between;
@@ -160,9 +168,10 @@ export const DishCountCard = styled.div`
     border-radius: 24px;
     padding: 10px;
   }
-`
+}
 
-export const DishIncreaseBtn = styled.button`
+.dish-increase-btn,
+.dish-decrease-btn {
   background-color: transparent;
   border: none;
   color: #ffffff;
@@ -177,25 +186,9 @@ export const DishIncreaseBtn = styled.button`
   @media screen and (min-width: 768px) {
     font-size: 26px;
   }
-`
-export const DishDecreaseBtn = styled.button`
-  background-color: transparent;
-  border: none;
-  color: #ffffff;
-  font-family: 'Roboto';
-  font-size: 18px;
-  font-weight: 500;
-  cursor: pointer;
-  outline: none;
-  @media screen and (min-width: 576px) {
-    font-size: 30px;
-  }
-  @media screen and (min-width: 768px) {
-    font-size: 26px;
-  }
-`
+}
 
-export const DishCount = styled.p`
+.dish-count {
   color: #ffffff;
   font-family: 'Roboto';
   font-size: 14px;
@@ -206,15 +199,15 @@ export const DishCount = styled.p`
   @media screen and (min-width: 768px) {
     font-size: 18px;
   }
-`
+}
 
-export const DishCaloriesImageCard = styled.div`
+.dish-calories-image-card {
   display: flex;
   justify-content: space-between;
   width: 40%;
-`
+}
 
-export const DishCalories = styled.p`
+.dish-calories {
   color: #db9c37;
   font-family: 'Roboto';
   font-size: 14px;
@@ -227,9 +220,9 @@ export const DishCalories = styled.p`
     margin-right: 20px;
     margin-left: 20px;
   }
-`
+}
 
-export const DishImage = styled.img`
+.dish-image {
   height: 50px;
   width: 50px;
   margin-top: 20px;
@@ -246,9 +239,9 @@ export const DishImage = styled.img`
     margin-top: 20px;
     border-radius: 8px;
   }
-`
+}
 
-export const DishAvailability = styled.p`
+.dish-availability {
   color: #c93814;
   font-family: 'Roboto';
   font-size: 14px;
@@ -258,9 +251,9 @@ export const DishAvailability = styled.p`
   @media screen and (min-width: 576px) {
     font-size: 18px;
   }
-`
+}
 
-export const CustomizationAvailable = styled.p`
+.customization-available {
   color: #5163cf;
   font-family: 'Roboto';
   font-size: 14px;
@@ -271,4 +264,4 @@ export const CustomizationAvailable = styled.p`
   @media screen and (min-width: 768px) {
     font-size: 18px;
   }
-`
+}
