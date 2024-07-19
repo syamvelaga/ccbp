@@ -11,6 +11,7 @@ const Categories = props => {
   })
   const items = [...menuCategory]
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [showArrow, setShowArrow] = useState(false)
   const scrollContainerRef = useRef(null)
 
   const {updateCurrentDishList} = useContext(MyContext)
@@ -34,29 +35,23 @@ const Categories = props => {
     container.style.transition = 'transform 0.3s ease-in-out'
 
     const translateX = -currentIndex * itemWidth
-
     container.style.transform = `translateX(${translateX}px)`
 
-    if (currentIndex === items.length) {
-      setTimeout(() => {
-        container.style.transition = 'none'
-        container.style.transform = `translateX(0px)`
-        setCurrentIndex(0)
-      }, 300)
-    } else if (currentIndex === -1) {
-      setTimeout(() => {
-        container.style.transition = 'none'
-        container.style.transform = `translateX(${
-          -itemWidth * (items.length - 1)
-        }px)`
-        setCurrentIndex(items.length - 1)
-      }, 300)
+    // Show or hide the arrow based on the current index
+    if (currentIndex === items.length - 1) {
+      setShowArrow(true)
+    } else {
+      setShowArrow(false)
     }
-  }, [currentIndex, items.length])
+  }, [currentIndex])
 
   const handleClick = index => {
     setCurrentIndex(index)
-    updateCurrentDishList(reptoDishes[index])
+  }
+
+  const scrollToFirst = () => {
+    setCurrentIndex(0)
+    setShowArrow(false) // Hide the arrow after resetting
   }
 
   return (
@@ -72,24 +67,12 @@ const Categories = props => {
               {item.menuName}
             </button>
           ))}
-          {/* Duplicate first and last items for circular navigation */}
-          <button
-            key="first-duplicate"
-            className={`item ${
-              currentIndex === items.length ? 'selected' : ''
-            }`}
-            onClick={() => handleClick(0)}
-          >
-            {items[0].menuName}
-          </button>
-          <button
-            key="last-duplicate"
-            className={`item ${currentIndex === -1 ? 'selected' : ''}`}
-            onClick={() => handleClick(items.length - 1)}
-          >
-            {items[items.length - 1].menuName}
-          </button>
         </div>
+        {showArrow && (
+          <button className="scroll-to-first" onClick={scrollToFirst}>
+            &larr; {/* Right arrow symbol */}
+          </button>
+        )}
       </div>
       <ul className="categories-list">
         {items.map((item, index) => (

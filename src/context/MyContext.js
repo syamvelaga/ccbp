@@ -1,6 +1,8 @@
 import React, {createContext} from 'react'
 
 const MyContext = React.createContext({
+  restaurantName: '',
+  updateRestaurantName: () => {},
   currentDishList: {},
   updateCurrentDishList: () => {},
   cartItem: 0,

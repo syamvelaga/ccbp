@@ -4,10 +4,10 @@ import MyContext from '../../context/MyContext'
 import './index.css'
 
 const Header = () => {
-  const {cartItem} = useContext(MyContext)
+  const {cartItem, restaurantName} = useContext(MyContext)
   return (
     <div className="header-card">
-      <h1 className="heading">UNI Resto Cafe</h1>
+      <h1 className="heading">{restaurantName}</h1>
       <div className="cart-name-icon-card">
         <p className="cart-name">My Orders</p>
         <div className="cart-card">

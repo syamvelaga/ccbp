@@ -1,11 +1,13 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 
 import Header from '../Header'
 import Categories from '../Categories'
 import CurrentDishesList from '../CurrentDishesList'
+import MyContext from '../../context/MyContext'
 import './index.css'
 
 const RestoApp = () => {
+  const {updateRestaurantName} = useContext(MyContext)
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -20,6 +22,8 @@ const RestoApp = () => {
           throw new Error('Data not found')
         }
         const responseData = await response.json()
+        const restaurantName = responseData[0].restaurant_name
+        updateRestaurantName(restaurantName)
         let tableMenuList = responseData[0].table_menu_list
         tableMenuList = tableMenuList.map(eachItem => ({
           categoryDishes: eachItem.category_dishes,
@@ -39,11 +43,11 @@ const RestoApp = () => {
   }, [])
 
   if (loading) {
-    return <div>Loading...</div>
+    return <div className="loading-error-card">Loading...</div>
   }
 
   if (error) {
-    return <div>Error: {error}</div>
+    return <div className="loading-error-card">Error: {error}</div>
   }
 
   return (
