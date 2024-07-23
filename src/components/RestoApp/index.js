@@ -40,7 +40,7 @@ const RestoApp = () => {
       }
     }
     fetchData()
-  }, [])
+  }, [updateRestaurantName])
 
   if (loading) {
     return <div className="loading-error-card">Loading...</div>

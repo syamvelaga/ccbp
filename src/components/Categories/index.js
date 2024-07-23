@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect, useContext} from 'react'
+import {useState, useRef, useEffect, useContext} from 'react'
 import MyContext from '../../context/MyContext'
 import './index.css'
 
@@ -23,11 +23,11 @@ const Categories = props => {
 
   useEffect(() => {
     updateCurrentDishList(reptoDishes[0])
-  }, [])
+  }, [reptoDishes, updateCurrentDishList])
 
   useEffect(() => {
     updateCurrentDishList(reptoDishes[currentIndex])
-  }, [currentIndex])
+  }, [currentIndex, reptoDishes, updateCurrentDishList])
 
   useEffect(() => {
     const container = scrollContainerRef.current
@@ -43,7 +43,7 @@ const Categories = props => {
     } else {
       setShowArrow(false)
     }
-  }, [currentIndex])
+  }, [currentIndex, items.length])
 
   const handleClick = index => {
     setCurrentIndex(index)
@@ -63,14 +63,19 @@ const Categories = props => {
               key={item.id}
               className={`item ${index === currentIndex ? 'selected' : ''}`}
               onClick={() => handleClick(index)}
+              type="button" // Add type attribute here
             >
               {item.menuName}
             </button>
           ))}
         </div>
         {showArrow && (
-          <button className="scroll-to-first" onClick={scrollToFirst}>
-            &larr; {/* Right arrow symbol */}
+          <button
+            className="scroll-to-first"
+            onClick={scrollToFirst}
+            type="button"
+          >
+            &larr; {/* Left arrow symbol */}
           </button>
         )}
       </div>
@@ -83,7 +88,7 @@ const Categories = props => {
               className={`categorie-btn ${
                 index === currentIndex ? 'selected' : ''
               }`}
-              type="button"
+              type="button" // Add type attribute here
             >
               {item.menuName}
             </button>

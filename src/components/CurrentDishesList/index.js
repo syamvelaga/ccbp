@@ -1,11 +1,13 @@
-import React, {useContext, useState, useEffect} from 'react'
+import {useContext, useState, useEffect} from 'react'
 import MyContext from '../../context/MyContext'
 import './index.css'
 
 const CurrentDishesList = () => {
-  const {currentDishList, increaseCartItem, decreaseCartItem} =
-    useContext(MyContext)
+  const {currentDishList, increaseCartItem, decreaseCartItem} = useContext(
+    MyContext,
+  )
   const {categoryDishes} = currentDishList
+  console.log(categoryDishes)
 
   const [categoryDishesList, setCategoryDishesList] = useState([])
 
