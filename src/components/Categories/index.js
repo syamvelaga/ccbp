@@ -16,11 +16,6 @@ const Categories = props => {
 
   const {updateCurrentDishList} = useContext(MyContext)
 
-  const onClickCategoryBtn = event => {
-    const index = parseInt(event.currentTarget.dataset.index, 10)
-    setCurrentIndex(index)
-  }
-
   useEffect(() => {
     updateCurrentDishList(reptoDishes[0])
   }, [reptoDishes, updateCurrentDishList])
@@ -31,16 +26,23 @@ const Categories = props => {
 
   useEffect(() => {
     const container = scrollContainerRef.current
-    const itemWidth = container.clientWidth / 2
-    container.style.transition = 'transform 0.3s ease-in-out'
+    const isSmallScreen = window.innerWidth < 768
 
-    const translateX = -currentIndex * itemWidth
-    container.style.transform = `translateX(${translateX}px)`
+    if (isSmallScreen) {
+      const itemWidth = container.clientWidth / 2
+      container.style.transition = 'transform 0.3s ease-in-out'
 
-    // Show or hide the arrow based on the current index
-    if (currentIndex === items.length - 1) {
-      setShowArrow(true)
+      const translateX = -currentIndex * itemWidth
+      container.style.transform = `translateX(${translateX}px)`
+
+      // Show or hide the arrow based on the current index
+      if (currentIndex === items.length - 1) {
+        setShowArrow(true)
+      } else {
+        setShowArrow(false)
+      }
     } else {
+      container.style.transform = 'none'
       setShowArrow(false)
     }
   }, [currentIndex, items.length])
@@ -55,47 +57,38 @@ const Categories = props => {
   }
 
   return (
-    <>
-      <div className="horizontal-scroll-container">
-        <div className="content" ref={scrollContainerRef}>
-          {items.map((item, index) => (
-            <button
-              key={item.id}
-              className={`item ${index === currentIndex ? 'selected' : ''}`}
-              onClick={() => handleClick(index)}
-              type="button" // Add type attribute here
-            >
-              {item.menuName}
-            </button>
-          ))}
-        </div>
-        {showArrow && (
-          <button
-            className="scroll-to-first"
-            onClick={scrollToFirst}
-            type="button"
-          >
-            &larr; {/* Left arrow symbol */}
-          </button>
-        )}
-      </div>
-      <ul className="categories-list">
+    <div className="categories-container">
+      <ul className="categories-list" ref={scrollContainerRef}>
         {items.map((item, index) => (
-          <li key={item.id} className="categorie-item">
+          <li
+            key={item.id}
+            className={`categorie-item ${
+              index === currentIndex ? 'selected' : ''
+            }`}
+          >
             <button
               data-index={index}
-              onClick={onClickCategoryBtn}
+              onClick={() => handleClick(index)}
               className={`categorie-btn ${
                 index === currentIndex ? 'selected' : ''
               }`}
-              type="button" // Add type attribute here
+              type="button"
             >
               {item.menuName}
             </button>
           </li>
         ))}
       </ul>
-    </>
+      {showArrow && (
+        <button
+          className="scroll-to-first"
+          onClick={scrollToFirst}
+          type="button"
+        >
+          &larr; {/* Left arrow symbol */}
+        </button>
+      )}
+    </div>
   )
 }
 

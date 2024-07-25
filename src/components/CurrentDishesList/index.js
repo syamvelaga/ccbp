@@ -7,7 +7,6 @@ const CurrentDishesList = () => {
     MyContext,
   )
   const {categoryDishes} = currentDishList
-  console.log(categoryDishes)
 
   const [categoryDishesList, setCategoryDishesList] = useState([])
 

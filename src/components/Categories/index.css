@@ -1,32 +1,39 @@
 /* Styles for small devices (default) */
-.horizontal-scroll-container {
-  padding: 20px;
-  overflow: hidden;
-  width: 100%; /* Adjust this width to fit two items */
+.categories-container {
   position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 
-.content {
+.categories-list {
   display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
   transition: transform 0.3s ease-in-out;
 }
 
-.item {
-  background-color: transparent;
-  border: none;
+.categorie-item {
   flex: 0 0 50%; /* Each item takes 50% of the container width */
   padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.categorie-btn {
+  background-color: transparent;
+  border: none;
   color: black;
   font-family: 'Roboto';
   font-size: 26px;
   font-weight: bold;
-  box-sizing: border-box;
-  text-align: center;
   cursor: pointer;
   border-bottom: none;
+  white-space: normal;
 }
 
-.item.selected {
+.categorie-btn.selected {
+  padding-bottom: 16px;
   color: #c92d0e;
   border-bottom: 3px solid #c92d0e;
 }
@@ -43,43 +50,25 @@
   cursor: pointer;
 }
 
-.categories-list {
-  display: none;
-}
-
 /* Styles for large devices */
 @media screen and (min-width: 768px) {
-  .horizontal-scroll-container {
-    display: none;
+  .categories-container {
+    overflow: visible;
   }
 
   .categories-list {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
+    transform: none !important;
   }
-}
 
-.categorie-item {
-  list-style-type: none;
-}
+  .categorie-item {
+    flex: 1 0 auto; /* Allow items to take up space naturally */
+  }
 
-.categorie-btn {
-  border: none;
-  background-color: transparent;
-  color: black;
-  font-family: 'Roboto';
-  font-size: 16px;
-  font-weight: bold;
-  box-sizing: border-box;
-  text-align: center;
-  cursor: pointer;
-  border-bottom: none;
-  padding: 20px;
-}
+  .categorie-btn {
+    font-size: 16px;
+  }
 
-.categorie-btn.selected {
-  color: #c92d0e;
-  border-bottom: 3px solid #c92d0e;
+  .scroll-to-first {
+    display: none; /* Hide the scroll button */
+  }
 }
