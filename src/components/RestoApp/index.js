@@ -15,9 +15,8 @@ const apiStatus = {
 }
 
 const RestoApp = () => {
-  const {updateRestaurantName} = useContext(MyContext)
+  const {updateRestaurantName, updateRestaurantData} = useContext(MyContext)
   const [currentApiStatus, setCurrentApiStatus] = useState(apiStatus.loader)
-  const [data, setData] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,27 +30,39 @@ const RestoApp = () => {
         updateRestaurantName(restaurantName)
         let tableMenuList = responseData[0].table_menu_list
         tableMenuList = tableMenuList.map(eachItem => ({
-          categoryDishes: eachItem.category_dishes,
+          categoryDishes: eachItem.category_dishes.map(eachDish => ({
+            addonCat: eachDish.addonCat,
+            dishAvailability: eachDish.dish_Availability,
+            dishType: eachDish.dish_Type,
+            dishCalories: eachDish.dish_calories,
+            dishCurrency: eachDish.dish_currency,
+            dishDescription: eachDish.dish_description,
+            dishId: eachDish.dish_id,
+            dishImage: eachDish.dish_image,
+            dishName: eachDish.dish_name,
+            dishPrice: eachDish.dish_price,
+            nexturl: eachDish.nexturl,
+            quantity: 0,
+          })),
           menuCategory: eachItem.menu_category,
           menuCategoryId: eachItem.menu_category_id,
           menuCategoryImage: eachItem.menu_category_image,
           nexturl: eachItem.nexturl,
         }))
-        setData(tableMenuList)
+        updateRestaurantData(tableMenuList)
         setCurrentApiStatus(apiStatus.success)
       } else {
-        setData([])
         setCurrentApiStatus(apiStatus.failure)
       }
     }
 
     fetchData()
-  }, [currentApiStatus, updateRestaurantName])
+  }, [currentApiStatus])
 
   const renderSuccessView = () => (
     <div className="resto-container">
       <Header />
-      <Categories reptoDishes={data} />
+      <Categories />
       <CurrentDishesList />
     </div>
   )

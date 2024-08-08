@@ -2,10 +2,15 @@ import {useState, useRef, useEffect, useContext} from 'react'
 import MyContext from '../../context/MyContext'
 import './index.css'
 
-const Categories = props => {
-  const {reptoDishes} = props
+const Categories = () => {
+  const {
+    updateCurrentDishList,
+    restaurantData,
+    updateCurrentDishCategory,
+  } = useContext(MyContext)
+
   let idCount = 0
-  const menuCategory = reptoDishes.map(eachItem => {
+  const menuCategory = restaurantData.map(eachItem => {
     idCount += 1
     return {id: idCount, menuName: eachItem.menuCategory}
   })
@@ -14,15 +19,15 @@ const Categories = props => {
   const [showArrow, setShowArrow] = useState(false)
   const scrollContainerRef = useRef(null)
 
-  const {updateCurrentDishList} = useContext(MyContext)
+  useEffect(() => {
+    updateCurrentDishCategory(restaurantData[0].menuCategoryId)
+    updateCurrentDishList(restaurantData[0])
+  }, [restaurantData, updateCurrentDishList])
 
   useEffect(() => {
-    updateCurrentDishList(reptoDishes[0])
-  }, [reptoDishes, updateCurrentDishList])
-
-  useEffect(() => {
-    updateCurrentDishList(reptoDishes[currentIndex])
-  }, [currentIndex, reptoDishes, updateCurrentDishList])
+    updateCurrentDishCategory(restaurantData[currentIndex].menuCategoryId)
+    updateCurrentDishList(restaurantData[currentIndex])
+  }, [currentIndex, restaurantData, updateCurrentDishList])
 
   useEffect(() => {
     const container = scrollContainerRef.current

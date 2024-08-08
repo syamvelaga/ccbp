@@ -12,52 +12,20 @@ const CurrentDishesList = () => {
 
   useEffect(() => {
     if (categoryDishes !== undefined) {
-      setCategoryDishesList(
-        categoryDishes.map(eachItem => ({
-          addonCat: eachItem.addonCat,
-          dishAvailability: eachItem.dish_Availability,
-          dishType: eachItem.dish_Type,
-          dishCalories: eachItem.dish_calories,
-          dishCurrency: eachItem.dish_currency,
-          dishDescription: eachItem.dish_description,
-          dishId: eachItem.dish_id,
-          dishImage: eachItem.dish_image,
-          dishName: eachItem.dish_name,
-          dishPrice: eachItem.dish_price,
-          nexturl: eachItem.nexturl,
-          cartItem: 0,
-        })),
-      )
+      setCategoryDishesList(categoryDishes)
     }
   }, [categoryDishes])
 
   const onClickIncreaseBtn = dishId => {
-    setCategoryDishesList(prevState =>
-      prevState.map(eachItem =>
-        eachItem.dishId === dishId
-          ? {...eachItem, cartItem: eachItem.cartItem + 1}
-          : eachItem,
-      ),
-    )
-    increaseCartItem()
+    increaseCartItem(dishId)
   }
 
   const onClickDecreaseBtn = dishId => {
     const currentDish = categoryDishesList.find(
       eachDish => eachDish.dishId === dishId,
     )
-    if (currentDish.cartItem > 0) {
-      setCategoryDishesList(prevState =>
-        prevState.map(eachItem =>
-          eachItem.dishId === dishId
-            ? {
-                ...eachItem,
-                cartItem: eachItem.cartItem - 1,
-              }
-            : eachItem,
-        ),
-      )
-      decreaseCartItem()
+    if (currentDish.quantity > 0) {
+      decreaseCartItem(dishId)
     }
   }
 
@@ -74,7 +42,7 @@ const CurrentDishesList = () => {
           dishCalories,
           addonCat,
           dishAvailability,
-          cartItem,
+          quantity,
         } = eachItem
 
         return (
@@ -111,7 +79,7 @@ const CurrentDishesList = () => {
                     >
                       -
                     </button>
-                    <p className="dish-count">{cartItem}</p>
+                    <p className="dish-count">{quantity}</p>
                     <button
                       className="dish-increase-btn"
                       type="button"
@@ -140,3 +108,45 @@ const CurrentDishesList = () => {
 }
 
 export default CurrentDishesList
+
+/* 
+
+      setCategoryDishesList(prevState =>
+        prevState.map(eachItem =>
+          eachItem.dishId === dishId
+            ? {
+                ...eachItem,
+                quantity: eachItem.quantity - 1,
+              }
+            : eachItem,
+        ),
+      )
+
+
+      
+    setCategoryDishesList(prevState =>
+      prevState.map(eachItem =>
+        eachItem.dishId === dishId
+          ? {...eachItem, quantity: eachItem.quantity + 1}
+          : eachItem,
+      ),
+    )
+
+
+    
+        categoryDishes.map(eachItem => ({
+          addonCat: eachItem.addonCat,
+          dishAvailability: eachItem.dish_Availability,
+          dishType: eachItem.dish_Type,
+          dishCalories: eachItem.dish_calories,
+          dishCurrency: eachItem.dish_currency,
+          dishDescription: eachItem.dish_description,
+          dishId: eachItem.dish_id,
+          dishImage: eachItem.dish_image,
+          dishName: eachItem.dish_name,
+          dishPrice: eachItem.dish_price,
+          nexturl: eachItem.nexturl,
+          quantity: 0,
+          cartItem: 0,
+        })),
+*/

@@ -1,6 +1,10 @@
 import {createContext} from 'react'
 
 const MyContext = createContext({
+  restaurantData: [],
+  updateRestaurantData: () => {},
+  currentDishCategory: '',
+  updateCurrentDishCategory: () => {},
   restaurantName: '',
   updateRestaurantName: () => {},
   currentDishList: {},
