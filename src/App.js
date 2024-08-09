@@ -10,7 +10,7 @@ const App = () => {
   const [currentDishCategory, setCurrentDishCategory] = useState('')
   const [currentDishList, setCurrentDishList] = useState({})
   const [restaurantData, setRestaurantData] = useState([])
-  const [cartItem, updatedCartItem] = useState(0)
+  const [cartItem, setCartItem] = useState(0)
 
   const updateCurrentDishList = currentList => {
     setCurrentDishList(currentList)
@@ -20,8 +20,7 @@ const App = () => {
     setRestaurantName(resName)
   }
 
-  const increaseCartItem = dishId => {
-    updatedCartItem(prevItem => prevItem + 1)
+  const increaseQuantity = dishId => {
     const quantityUpdate = restaurantData.map(eachItem => {
       if (eachItem.menuCategoryId === currentDishCategory) {
         return {
@@ -41,8 +40,7 @@ const App = () => {
     setRestaurantData(quantityUpdate)
   }
 
-  const decreaseCartItem = dishId => {
-    updatedCartItem(prevItem => prevItem - 1)
+  const decreaseQuantity = dishId => {
     const quantityUpdate = restaurantData.map(eachItem => {
       if (eachItem.menuCategoryId === currentDishCategory) {
         return {
@@ -70,6 +68,18 @@ const App = () => {
     setCurrentDishCategory(dishCategoryId)
   }
 
+  const updateCartItem = dishId => {
+    const currentCategory = restaurantData.filter(
+      eachItem => eachItem.menuCategoryId === currentDishCategory,
+    )
+    const {categoryDishes} = currentCategory[0]
+    const currentDish = categoryDishes.filter(
+      eachItem => eachItem.dishId === dishId,
+    )
+    const {quantity} = currentDish[0]
+    setCartItem(prevState => prevState + quantity)
+  }
+
   return (
     <MyContext.Provider
       value={{
@@ -82,8 +92,9 @@ const App = () => {
         currentDishList,
         updateCurrentDishList,
         cartItem,
-        increaseCartItem,
-        decreaseCartItem,
+        updateCartItem,
+        increaseQuantity,
+        decreaseQuantity,
       }}
     >
       <RestoApp />

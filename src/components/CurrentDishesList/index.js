@@ -3,9 +3,12 @@ import MyContext from '../../context/MyContext'
 import './index.css'
 
 const CurrentDishesList = () => {
-  const {currentDishList, increaseCartItem, decreaseCartItem} = useContext(
-    MyContext,
-  )
+  const {
+    currentDishList,
+    increaseQuantity,
+    decreaseQuantity,
+    updateCartItem,
+  } = useContext(MyContext)
   const {categoryDishes} = currentDishList
 
   const [categoryDishesList, setCategoryDishesList] = useState([])
@@ -17,7 +20,7 @@ const CurrentDishesList = () => {
   }, [categoryDishes])
 
   const onClickIncreaseBtn = dishId => {
-    increaseCartItem(dishId)
+    increaseQuantity(dishId)
   }
 
   const onClickDecreaseBtn = dishId => {
@@ -25,8 +28,12 @@ const CurrentDishesList = () => {
       eachDish => eachDish.dishId === dishId,
     )
     if (currentDish.quantity > 0) {
-      decreaseCartItem(dishId)
+      decreaseQuantity(dishId)
     }
+  }
+
+  const onClickAddToCart = dishId => {
+    updateCartItem(dishId)
   }
 
   return (
@@ -71,22 +78,33 @@ const CurrentDishesList = () => {
                 {dishAvailability === false ? (
                   <p className="dish-availability">Not available</p>
                 ) : (
-                  <div className="dish-count-card">
-                    <button
-                      className="dish-decrease-btn"
-                      type="button"
-                      onClick={() => onClickDecreaseBtn(dishId)}
-                    >
-                      -
-                    </button>
-                    <p className="dish-count">{quantity}</p>
-                    <button
-                      className="dish-increase-btn"
-                      type="button"
-                      onClick={() => onClickIncreaseBtn(dishId)}
-                    >
-                      +
-                    </button>
+                  <div className="dish-count-add-to-cart-card">
+                    <div className="dish-count-card">
+                      <button
+                        className="dish-decrease-btn"
+                        type="button"
+                        onClick={() => onClickDecreaseBtn(dishId)}
+                      >
+                        -
+                      </button>
+                      <p className="dish-count">{quantity}</p>
+                      <button
+                        className="dish-increase-btn"
+                        type="button"
+                        onClick={() => onClickIncreaseBtn(dishId)}
+                      >
+                        +
+                      </button>
+                    </div>
+                    {quantity > 0 && (
+                      <button
+                        onClick={() => onClickAddToCart(dishId)}
+                        type="button"
+                        className="add-to-cart-button"
+                      >
+                        ADD TO CART
+                      </button>
+                    )}
                   </div>
                 )}
                 {addonCat.length !== 0 && (
@@ -108,45 +126,3 @@ const CurrentDishesList = () => {
 }
 
 export default CurrentDishesList
-
-/* 
-
-      setCategoryDishesList(prevState =>
-        prevState.map(eachItem =>
-          eachItem.dishId === dishId
-            ? {
-                ...eachItem,
-                quantity: eachItem.quantity - 1,
-              }
-            : eachItem,
-        ),
-      )
-
-
-      
-    setCategoryDishesList(prevState =>
-      prevState.map(eachItem =>
-        eachItem.dishId === dishId
-          ? {...eachItem, quantity: eachItem.quantity + 1}
-          : eachItem,
-      ),
-    )
-
-
-    
-        categoryDishes.map(eachItem => ({
-          addonCat: eachItem.addonCat,
-          dishAvailability: eachItem.dish_Availability,
-          dishType: eachItem.dish_Type,
-          dishCalories: eachItem.dish_calories,
-          dishCurrency: eachItem.dish_currency,
-          dishDescription: eachItem.dish_description,
-          dishId: eachItem.dish_id,
-          dishImage: eachItem.dish_image,
-          dishName: eachItem.dish_name,
-          dishPrice: eachItem.dish_price,
-          nexturl: eachItem.nexturl,
-          quantity: 0,
-          cartItem: 0,
-        })),
-*/
