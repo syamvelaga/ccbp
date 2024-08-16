@@ -10,7 +10,6 @@ const MyContext = createContext({
   currentDishList: {},
   updateCurrentDishList: () => {},
   cartItem: 0,
-  updateCartItem: () => {},
   increaseCartItem: () => {},
   decreaseCartItem: () => {},
 })

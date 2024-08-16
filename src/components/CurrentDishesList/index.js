@@ -3,12 +3,9 @@ import MyContext from '../../context/MyContext'
 import './index.css'
 
 const CurrentDishesList = () => {
-  const {
-    currentDishList,
-    increaseQuantity,
-    decreaseQuantity,
-    updateCartItem,
-  } = useContext(MyContext)
+  const {currentDishList, increaseQuantity, decreaseQuantity} = useContext(
+    MyContext,
+  )
   const {categoryDishes} = currentDishList
 
   const [categoryDishesList, setCategoryDishesList] = useState([])
@@ -30,10 +27,6 @@ const CurrentDishesList = () => {
     if (currentDish.quantity > 0) {
       decreaseQuantity(dishId)
     }
-  }
-
-  const onClickAddToCart = dishId => {
-    updateCartItem(dishId)
   }
 
   return (
@@ -97,11 +90,7 @@ const CurrentDishesList = () => {
                       </button>
                     </div>
                     {quantity > 0 && (
-                      <button
-                        onClick={() => onClickAddToCart(dishId)}
-                        type="button"
-                        className="add-to-cart-button"
-                      >
+                      <button type="button" className="add-to-cart-button">
                         ADD TO CART
                       </button>
                     )}

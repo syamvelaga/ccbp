@@ -37,6 +37,7 @@ const App = () => {
       return eachItem
     })
 
+    setCartItem(prevState => prevState + 1)
     setRestaurantData(quantityUpdate)
   }
 
@@ -57,6 +58,7 @@ const App = () => {
       return eachItem
     })
 
+    setCartItem(prevState => prevState - 1)
     setRestaurantData(quantityUpdate)
   }
 
@@ -66,18 +68,6 @@ const App = () => {
 
   const updateCurrentDishCategory = dishCategoryId => {
     setCurrentDishCategory(dishCategoryId)
-  }
-
-  const updateCartItem = dishId => {
-    const currentCategory = restaurantData.filter(
-      eachItem => eachItem.menuCategoryId === currentDishCategory,
-    )
-    const {categoryDishes} = currentCategory[0]
-    const currentDish = categoryDishes.filter(
-      eachItem => eachItem.dishId === dishId,
-    )
-    const {quantity} = currentDish[0]
-    setCartItem(prevState => prevState + quantity)
   }
 
   return (
@@ -92,7 +82,6 @@ const App = () => {
         currentDishList,
         updateCurrentDishList,
         cartItem,
-        updateCartItem,
         increaseQuantity,
         decreaseQuantity,
       }}
