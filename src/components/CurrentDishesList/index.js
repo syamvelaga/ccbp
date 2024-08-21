@@ -62,10 +62,11 @@ const CurrentDishesList = () => {
                 </div>
               </div>
               <div className="dish-name-desp-price-card">
-                <h1 className="dish-name">{dishName}</h1>
+                <p className="dish-name">{dishName}</p>
                 <div className="dish-currency-price-card">
-                  <p className="dish-currency">{dishCurrency}</p>
-                  <p className="dish-price">{dishPrice}</p>
+                  <p className="dish-currency">
+                    {dishCurrency} {dishPrice}
+                  </p>
                 </div>
                 <p className="dish-desp">{dishDescription}</p>
                 {dishAvailability === false ? (
