@@ -3,8 +3,11 @@ import MyContext from '../../context/MyContext'
 import './index.css'
 
 const Categories = () => {
-  const {updateCurrentDishList, restaurantData, updateCurrentDishCategory} =
-    useContext(MyContext)
+  const {
+    updateCurrentDishList,
+    restaurantData,
+    updateCurrentDishCategory,
+  } = useContext(MyContext)
 
   let idCount = 0
   const menuCategory = restaurantData.map(eachItem => {

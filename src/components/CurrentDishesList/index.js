@@ -3,8 +3,9 @@ import MyContext from '../../context/MyContext'
 import './index.css'
 
 const CurrentDishesList = () => {
-  const {currentDishList, increaseQuantity, decreaseQuantity} =
-    useContext(MyContext)
+  const {currentDishList, increaseQuantity, decreaseQuantity} = useContext(
+    MyContext,
+  )
   const {categoryDishes} = currentDishList
 
   const [categoryDishesList, setCategoryDishesList] = useState([])
